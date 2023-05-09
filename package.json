@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "@types/node": "18.16.3",
     "@types/react": "18.2.5",
     "@types/react-dom": "18.2.3",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "10.4.14",
+    "canvas-sketch": "^0.7.7",
+    "canvas-sketch-util": "^1.10.0",
     "clsx": "^1.2.1",
+    "colormap": "^2.3.2",
+    "eases": "^1.0.8",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "next": "13.3.4",

@@ -16,6 +16,10 @@
   }
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 html {
   min-width: 360px;
 }
@@ -28,4 +32,22 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+body::-webkit-scrollbar {
+  width: 0.9rem;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 12px #424242;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #FFFAFA;
+  border: solid 2px #141414;
+  border-radius: 8px;
+}
+
+#canvas {
+  position: absolute;
 }
