@@ -50,6 +50,9 @@ export default function Canvas() {
     const imgACanvas = document.createElement('canvas');
     const imgAContext = imgACanvas.getContext('2d');
 
+    const div = document.getElementById('canvasDiv');
+    div.appendChild(canvas);
+
     imgACanvas.width = imgA.width;
     imgACanvas.height = imgA.height;
 
@@ -228,6 +231,8 @@ export default function Canvas() {
   }
 
   return (
-    <canvas className="absolute z-10"/>
+    <div id="canvasDiv" className="mt-5 z-10">
+      <imgACanvas className="absolute"/>
+    </div>
   )
 }

@@ -1,14 +1,16 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-import { getBlogViews, getTweetCount, getStarCount } from '../lib/metrics';
+// import { getBlogViews, getTweetCount, getStarCount } from '../lib/metrics';
 import { name, about, bio, avatar } from '../lib/info';
 import { ArrowIcon, GitHubIcon, TwitterIcon, ViewsIcon } from '../components/icons';
-import Canvas from '../Canvas/Canvas';
 import Titles from '../components/Titles';
 
-export const revalidate = 60;
+const Canvas = dynamic( () => import('../Canvas/Canvas'), { ssr: false } );
 
+
+export const revalidate = 60;
 
 export default function Page() {
 
