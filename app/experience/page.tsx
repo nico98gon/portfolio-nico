@@ -1,45 +1,65 @@
 import Link from "next/link";
 import React from "react";
-// import { allProjects } from "contentlayer/generated";
-// import { Redis } from "@upstash/redis";
+import { allProjects } from "contentlayer/generated";
+import { Redis } from "@upstash/redis";
 import { ArrowLeft, Eye } from "lucide-react";
 
-// import { Article } from "./article";
-import { Card } from "../../components/card";
+import { Article } from "./article";
+import { Card } from "../../components/Card";
 
 
-// const redis = Redis.fromEnv();
+const redis = Redis.fromEnv();
 
 export const revalidate = 60;
 
-export default function page() {
-    // const views = (
-    //     await redis.mget<number[]>(
-    //         ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
-    //     )
-    // ).reduce((acc, v, i) => {
-    //     acc[allProjects[i].slug] = v ?? 0;
-    //     return acc;
-    // }, {} as Record<string, number>);
+export default async function page() {
 
-    // const featured = allProjects.find(
-    //     (project) => project.slug === "planetfall",
-    // )!;
-    // const top2 = allProjects.find((project) => project.slug === "envshare")!;
-    // const top3 = allProjects.find((project) => project.slug === "qstash")!;
-    // const sorted = allProjects
-    //     .filter((p) => p.published)
-    //     .filter(
-    //         (project) =>
-    //             project.slug !== featured.slug &&
-    //             project.slug !== top2.slug &&
-    //             project.slug !== top3.slug,
-    //     )
-    //     .sort(
-    //         (a, b) =>
-    //             new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
-    //             new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
-    // );
+    const views = (
+        await redis.mget<number[]>(
+            ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
+        )
+    ).reduce((acc, v, i) => {
+        acc[allProjects[i].slug] = v ?? 0;
+        return acc;
+    }, {} as Record<string, number>);
+
+    const featured = allProjects.find(
+        (project) => project.slug === "comercioSJ",
+    )!;
+    const top2 = allProjects.find((project) => project.slug === "blogeate")!;
+    const top3 = allProjects.find((project) => project.slug === "nicommit")!;
+    const noCode1 = allProjects.find((project) => project.slug === "MiBot")!;
+    const noCode2 = allProjects.find((project) => project.slug === "MiningGPU")!;
+    const noCode3 = allProjects.find((project) => project.slug === "ServerCloudGPU")!;
+    const sorted = allProjects
+        .filter((p) => p.published)
+        .filter(
+            (project) =>
+                project.slug !== featured.slug &&
+                project.slug !== top2.slug &&
+                project.slug !== top3.slug &&
+                project.slug !== noCode1.slug &&
+                project.slug !== noCode2.slug &&
+                project.slug !== noCode3.slug,
+        )
+        .sort(
+            (a, b) =>
+                new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
+                new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
+    );
+    const sortedNoCode = allProjects
+        .filter((p) => p.published)
+        .filter(
+            (project) =>
+                project.slug === noCode1.slug ||
+                project.slug === noCode2.slug ||
+                project.slug === noCode3.slug,
+        )
+        .sort(
+            (a, b) =>
+                new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
+                new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
+    );
 
     return (
         <section className="bg-black z-50 h-fit">
@@ -61,11 +81,11 @@ export default function page() {
     
                     <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
                         <Card>
-                            {/* <Link href={`/projects/${featured.slug}`}> */}
+                            <Link href={`/experience/${featured.slug}`}>
                                 <article className="relative h-full w-full p-4 md:p-8">
                                     <div className="flex justify-between gap-2 items-center">
                                         <div className="text-xs text-zinc-100">
-                                            {/* {featured.date ? (
+                                            {featured.date ? (
                                                 <time dateTime={new Date(featured.date).toISOString()}>
                                                     {Intl.DateTimeFormat(undefined, {
                                                         dateStyle: "medium",
@@ -73,13 +93,13 @@ export default function page() {
                                                 </time>
                                             ) : (
                                                 <span>SOON</span>
-                                            )} */}
+                                            )}
                                         </div>
-                                        <span className="text-zinc-500 text-xs  flex items-center gap-1">
+                                        <span className="text-rose text-xs  flex items-center gap-1">
                                             <Eye className="w-4 h-4" />{" "}
-                                            {/* {Intl.NumberFormat("en-US", { notation: "compact" }).format(
+                                            {Intl.NumberFormat("en-US", { notation: "compact" }).format(
                                                 views[featured.slug] ?? 0,
-                                            )} */}
+                                            )}
                                         </span>
                                     </div>
     
@@ -87,10 +107,10 @@ export default function page() {
                                         id="featured-post"
                                         className="mt-4 text-3xl font-bold  text-zinc-100 group-hover:text-white sm:text-4xl font-display"
                                     >
-                                        {/* {featured.title} */}
+                                        {featured.title}
                                     </h2>
                                     <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
-                                        {/* {featured.description} */}
+                                        {featured.description}
                                     </p>
                                     <div className="absolute bottom-4 md:bottom-8">
                                     <p className="text-zinc-200 hover:text-zinc-50 hidden lg:block">
@@ -98,15 +118,15 @@ export default function page() {
                                         </p>
                                     </div>
                                 </article>
-                            {/* </Link> */}
+                            </Link>
                         </Card>
 
-                        <div className="flex flex-col w-full gap-8  mx-auto border-t border-gray-900/10  lg:mx-0  lg:border-t-0 ">
-                            {/* {[top2, top3].map((project) => (
+                        <div className="flex flex-col w-full  gap-8 mx-auto border-t border-gray-900/10  lg:mx-0  lg:border-t-0 ">
+                            {[top2, top3].map((project) => (
                                 <Card key={project.slug}>
                                     <Article project={project} views={views[project.slug] ?? 0} />
                                 </Card>
-                            ))} */}
+                            ))}
                         </div>
                     </div>
 
@@ -114,31 +134,31 @@ export default function page() {
 
                     <div className="grid  grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
                         <div className="grid grid-cols-1 gap-4">
-                            {/* {sorted
+                            {sorted
                                 .filter((_, i) => i % 3 === 0)
                                 .map((project) => (
                                     <Card key={project.slug}>
                                         <Article project={project} views={views[project.slug] ?? 0} />
                                     </Card>
-                                ))} */}
+                                ))}
                         </div>
                         <div className="grid grid-cols-1 gap-4">
-                            {/* {sorted
+                            {sorted
                                 .filter((_, i) => i % 3 === 1)
                                 .map((project) => (
                                     <Card key={project.slug}>
                                         <Article project={project} views={views[project.slug] ?? 0} />
                                     </Card>
-                                ))} */}
+                                ))}
                         </div>
                         <div className="grid grid-cols-1 gap-4">
-                            {/* {sorted
+                            {sorted
                                 .filter((_, i) => i % 3 === 2)
                                 .map((project) => (
                                     <Card key={project.slug}>
                                         <Article project={project} views={views[project.slug] ?? 0} />
                                     </Card>
-                                ))} */}
+                                ))}
                         </div>
                     </div>
 
@@ -151,6 +171,38 @@ export default function page() {
                         <p className="mt-4 text-zinc-400">
                             Software no code and hardware projects with business goals
                         </p>
+                    </div>
+
+                    <div className="w-full h-px bg-zinc-800" />
+
+                    <div className="grid  grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-4">
+                            {sortedNoCode
+                                .filter((_, i) => i % 3 === 0)
+                                .map((project) => (
+                                    <Card key={project.slug}>
+                                        <Article project={project} views={views[project.slug] ?? 0} />
+                                    </Card>
+                                ))}
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                            {sortedNoCode
+                                .filter((_, i) => i % 3 === 1)
+                                .map((project) => (
+                                    <Card key={project.slug}>
+                                        <Article project={project} views={views[project.slug] ?? 0} />
+                                    </Card>
+                                ))}
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                            {sortedNoCode
+                                .filter((_, i) => i % 3 === 2)
+                                .map((project) => (
+                                    <Card key={project.slug}>
+                                        <Article project={project} views={views[project.slug] ?? 0} />
+                                    </Card>
+                                ))}
+                        </div>
                     </div>
                 </div>
             </div>
