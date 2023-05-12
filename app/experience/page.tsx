@@ -62,17 +62,17 @@ export default async function page() {
     );
 
     return (
-        <section className="bg-black z-50 h-fit">
-            <Link href="/" className="duration-200 text-zinc-300 hover:text-zinc-100">
-                <ArrowLeft className="w-6 h-6 mt-6" />
-            </Link>
-            <h1 className="text-white font-bold text-5xl font-sans mt-8 ml-16">My work experience</h1>
+        <section className="bg-black">
             <div className="relative pb-16">
-                <div className="px-6 pt-16 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+                <div className="px-6 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16">
+                    <Link href="/" className="duration-200 text-zinc-300 hover:text-zinc-100">
+                        <ArrowLeft className="w-6 h-6 mt-6" />
+                    </Link>
+                    <h1 className="text-white font-bold text-5xl font-sans mt-8 ml-16">My work experience</h1>
+                    <h2 className="text-white text-3xl font-bold tracking-tight sm:text-4xl">
+                        Code projects
+                    </h2>
                     <div className="max-w-2xl mx-auto lg:mx-0">
-                        <h2 className="text-white text-3xl font-bold tracking-tight sm:text-4xl">
-                            Code projects
-                        </h2>
                         <p className="mt-4 text-zinc-400">
                             Software development projects with learning and business goals
                         </p>

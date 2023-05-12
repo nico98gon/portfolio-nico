@@ -6,9 +6,19 @@ import random from 'canvas-sketch-util/random';
 import math from 'canvas-sketch-util/math';
 import eases from 'eases';
 import colormap from 'colormap';
+import interpolate from 'color-interpolate';
 
 import { useScreenHeight } from "../hooks/useScreenHeight";
 import useScreenWidth from "../hooks/useScreenWidth";
+
+let scrollPosition = 0;
+
+function updateScrollPosition() {
+  const newPosition = window.scrollY;
+  requestAnimationFrame(() => {
+    scrollPosition = newPosition;
+  });
+}
 
 export default function Canvas() {
 
@@ -18,12 +28,14 @@ export default function Canvas() {
   const screenWidth = useScreenWidth();
 
   const settings = {
-    dimensions: [screenWidth, screenHeight ],
+    dimensions: [screenWidth, screenHeight],
     animate: true,
   };
 
   const particles = [];
   const cursor = { x: 9999, y: 9999 };
+
+  // const colors = colormap({ colormap: 'viridis', nshades: 20, });
 
   const colors = colormap({ 
     colormap: [
@@ -33,14 +45,18 @@ export default function Canvas() {
       { index: 1, rgb: [ 144, 55, 57 ] },
     ],
     nshades: 20,
-    format: 'rgb',
-    alpha: 2,
+    format: 'hex',
+    alpha: 1,
   });
 
-  const imgRef = useRef(null);
-  let elCanvas;
-  let imgA = imgRef.current;
+  const imgRefA = useRef(null);
+  const imgRefB = useRef(null);
 
+  let imgA = imgRefA.current;
+  let imgB = imgRefB.current;
+
+  let elCanvas;
+  
   const sketch = ({ canvas }) => {
 
     const width = screenHeight * 0.8;
@@ -50,15 +66,24 @@ export default function Canvas() {
     const imgACanvas = document.createElement('canvas');
     const imgAContext = imgACanvas.getContext('2d');
 
+    const imgBCanvas = document.createElement('canvas');
+    const imgBContext = imgBCanvas.getContext('2d');
+
     const div = document.getElementById('canvasDiv');
     div.appendChild(canvas);
 
     imgACanvas.width = imgA.width;
     imgACanvas.height = imgA.height;
 
+    imgBCanvas.width = imgB.width;
+    imgBCanvas.height = imgB.height;
+
     imgAContext.drawImage(imgA, 0, 0);
 
+    imgBContext.drawImage(imgB, 0, 0);
+
     const imgAData = imgAContext.getImageData(0, 0, imgA.width, imgA.height).data;
+    const imgBData = imgBContext.getImageData(0, 0, imgB.width, imgB.height).data;
 
     const numCircles = 20;
     const gapCircle = 8;
@@ -75,7 +100,7 @@ export default function Canvas() {
       const circumference = Math.PI * 2 * cirRadius;
       const numFit = i ? Math.floor(circumference / (fitRadius * 2 + gapDot)): 1;
       const fitSlice = Math.PI * 2 / numFit;
-      let  ix, iy, idx, r, g, b, colA;
+      let  ix, iy, idx, r, g, b, colA, colB, colMap;
 
       for (let j = 0; j < numFit; j++) {
         const theta = fitSlice * j;
@@ -97,7 +122,22 @@ export default function Canvas() {
 
         radius = math.mapRange(r, 0, 255, 3, 9);
 
-        particle = new Particle({ x, y, radius, colA });
+        ix = Math.floor((x / width) * imgB.width);
+        iy = Math.floor((y / height) * imgB.height);
+        idx = (iy * imgB.width + ix) * 4;
+
+        r = imgBData[idx + 0];
+        g = imgBData[idx + 1];
+        b = imgBData[idx + 2];
+        colB = `rgb(${r}, ${g}, ${b})`
+
+        colMap = interpolate([colA, colB]);
+
+        window.addEventListener('scroll', () => {
+          updateScrollPosition();
+        });
+
+        particle = new Particle({ x, y, radius, colMap });
         particles.push(particle);
       }
 
@@ -108,6 +148,7 @@ export default function Canvas() {
     return ({ context, width, height }) => {
       // context.fillStyle = 'white';
       // context.globalAlpha = 0.5;
+
       context.fillRect(0, 0, width, height);
       context.clearRect(0, 0, width, height);
 
@@ -125,7 +166,7 @@ export default function Canvas() {
     const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
 
     cursor.x = x;
-    cursor.y = y;
+    cursor.y = y + scrollPosition;
   };
 
   useEffect(() => {
@@ -139,8 +180,9 @@ export default function Canvas() {
     };
 
     const start = async () => {
-      // imgA = await loadImage('/img/perfilStudio.jpg');
-      imgRef.current = await loadImage('/img/perfilStudio.jpg');
+      imgRefA.current = await loadImage('/img/perfilStudio.jpg');
+      imgRefB.current = await loadImage('/img/colors-triangle.jpg');
+
       setImgLoaded(true);
     }
 
@@ -151,10 +193,10 @@ export default function Canvas() {
       if (imgLoaded) {
         canvasSketch(sketch, settings);
       }
-    }, [imgLoaded]);
+    }, [imgLoaded, scrollPosition]);
 
   class Particle {
-    constructor({ x, y, radius = 10, colA }) {
+    constructor({ x, y, radius = 10, colMap }) {
       //postiion
       this.x = x; 
       this.y = y;
@@ -168,12 +210,13 @@ export default function Canvas() {
       this.vy = 0;
 
       //initial position
-      this.ix = x; 
-      this.iy = y;
+      this.ix = x + 160; 
+      this.iy = y + 40;
 
       this.radius = radius;
       this.scale = 1;
-      this.color = colA;
+      this.colMap = colMap;
+      this.color = colMap(0);
 
       this.minDist = random.range(100, 200);
       this.pushFactor = random.range(0.01, 0.02)
@@ -187,7 +230,7 @@ export default function Canvas() {
 
       //pull force
       dx = this.ix - this.x;
-      dy = this.iy - this.y;
+      dy = this.iy - this.y  + scrollPosition;
       dd = Math.sqrt( dx * dx + dy * dy );
 
       this.ax = dx * this.pullFactor;
@@ -195,9 +238,15 @@ export default function Canvas() {
 
       this.scale = math.mapRange(dd, 0, 200, 1, 5);
 
+      // idxColor = Math.floor(math.mapRange( dd, 0, 200, 0, colors.length -1, true ))
+      // this.color = colors[idxColor];
+      this.color = this.colMap(math.mapRange(dd, 0, 200, 0, 1, true));
+
+      // this.color = this.color
+
       // push force
       dx = this.x - cursor.x;
-      dy = this.y - cursor.y;
+      dy = this.y - cursor.y + scrollPosition;
       dd = Math.sqrt( dx * dx + dy * dy );
 
       distDelta = this.minDist - dd;
@@ -231,8 +280,8 @@ export default function Canvas() {
   }
 
   return (
-    <div id="canvasDiv" className="mt-5 z-10">
-      <imgACanvas className="absolute"/>
+    <div id="canvasDiv" className="z-0 min-h-screen h-screen">
+      <imgACanvas className="absolute min-h-screen h-screen"/>
     </div>
   )
 }

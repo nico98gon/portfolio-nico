@@ -13,18 +13,18 @@ const kaisei = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Lee Robinson',
-    template: '%s | Lee Robinson',
+    default: 'Nico Gonzalez',
+    template: '%s | Nico Gonzalez',
   },
-  description: 'Developer, writer, and creator.',
+  description: 'Frontend developer, designer and backend dev',
   openGraph: {
-    title: 'Lee Robinson',
-    description: 'Developer, writer, and creator.',
-    url: 'https://leerob.io',
-    siteName: 'Lee Robinson',
+    title: 'Nico Gonzalez',
+    description: 'Frontend developer, designer and backend dev',
+    url: 'https://nicommit.com',
+    siteName: 'Nico Gonzalez',
     images: [
       {
-        url: 'https://leerob.io/og.jpg',
+        url: '',
         width: 1920,
         height: 1080,
       },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Lee Robinson',
+    title: 'Nico',
     card: 'summary_large_image',
   },
   icons: {
@@ -71,7 +71,7 @@ export default function RootLayout({
     >
       {/* <head/> */}
       <link href="/_next/static/css/app/layout.css?v=1683600244618" rel="preload" as="style" />
-      <body className="bg-white antialiased md:max-w-5xl xl:max-w-6xl 2xl:max-w-[100rem] mb-20 flex flex-col md:flex-row mx-1 lg:mx-auto">
+      <body className="bg-white antialiased max-w-[100wh] mb-20 flex flex-col md:flex-row mx-1 lg:mx-auto">
         <main className="bg-white flex-auto min-w-0 md:mt-0 flex flex-col px-2 md:px-0">
           {children}
           <Analytics />
