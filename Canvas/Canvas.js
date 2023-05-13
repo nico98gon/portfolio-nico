@@ -56,6 +56,12 @@ export default function Canvas() {
   let imgB = imgRefB.current;
 
   let elCanvas;
+
+  let imgACanvas = document.createElement('canvas');
+  let imgAContext = imgACanvas.getContext('2d');
+
+  let imgBCanvas = document.createElement('canvas');
+  let imgBContext = imgBCanvas.getContext('2d');
   
   const sketch = ({ canvas }) => {
 
@@ -63,11 +69,6 @@ export default function Canvas() {
     const height = screenHeight * 0.8;
     let x, y, particle, radius;
 
-    const imgACanvas = document.createElement('canvas');
-    const imgAContext = imgACanvas.getContext('2d');
-
-    const imgBCanvas = document.createElement('canvas');
-    const imgBContext = imgBCanvas.getContext('2d');
 
     const div = document.getElementById('canvasDiv');
     div.appendChild(canvas);
@@ -146,8 +147,10 @@ export default function Canvas() {
     }
 
     return ({ context, width, height }) => {
-      // context.fillStyle = 'white';
-      // context.globalAlpha = 0.5;
+
+      canvas.getContext('2d');
+
+      context.scale(screenWidth / width, screenHeight / height)
 
       context.fillRect(0, 0, width, height);
       context.clearRect(0, 0, width, height);
@@ -191,8 +194,26 @@ export default function Canvas() {
 
     useEffect(() => {
       if (imgLoaded) {
-        canvasSketch(sketch, settings);
-      }
+        const instance = canvasSketch(sketch, settings);
+        
+        let ctx;
+        ctx = imgACanvas.getContext('2d');
+        ctx = imgBCanvas.getContext('2d');
+        const canvasDiv = document.getElementById('canvasDiv');
+    
+        return () => {
+          ctx.clearRect(0, 0, imgACanvas.width, imgACanvas.height);
+          ctx.clearRect(0, 0, imgBCanvas.width, imgBCanvas.height);
+          imgACanvas = null;
+          imgBCanvas = null;
+          imgAContext = null;
+          imgBContext = null;
+          canvasDiv.innerHTML = '';
+          canvasDiv.remove();
+          // instance.stop();
+          // setCanvasSketchInstance(null);
+        };
+      } 
     }, [imgLoaded, scrollPosition]);
 
   class Particle {
