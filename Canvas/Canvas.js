@@ -71,7 +71,7 @@ export default function Canvas() {
 
 
     const div = document.getElementById('canvasDiv');
-    div.appendChild(canvas);
+    div?.appendChild(canvas);
 
     imgACanvas.width = imgA.width;
     imgACanvas.height = imgA.height;
@@ -199,7 +199,9 @@ export default function Canvas() {
         let ctx;
         ctx = imgACanvas.getContext('2d');
         ctx = imgBCanvas.getContext('2d');
-        const canvasDiv = document.getElementById('canvasDiv');
+        // const canvasDiv = document.getElementById('canvasDiv');
+        const canvasDiv = document.querySelector('#canvasDiv');
+        const nodeCanvas = canvasDiv?.childNodes[0];
     
         return () => {
           ctx.clearRect(0, 0, imgACanvas.width, imgACanvas.height);
@@ -208,8 +210,9 @@ export default function Canvas() {
           imgBCanvas = null;
           imgAContext = null;
           imgBContext = null;
+          canvasDiv?.removeChild(nodeCanvas);
           canvasDiv.innerHTML = '';
-          canvasDiv.remove();
+          canvasDiv?.remove();
           // instance.stop();
           // setCanvasSketchInstance(null);
         };

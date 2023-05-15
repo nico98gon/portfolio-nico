@@ -22,6 +22,7 @@ module.exports = {
         white: '#FFFAFA',
         rose: '#d1515e',
         green: '#237f74',
+        grey: '#2f3545',
       }
     },
   },
