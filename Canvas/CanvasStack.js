@@ -219,15 +219,19 @@ const sketch = ({ width, height, canvas }) => {
 
     elCanvas = canvas;
 
-    // Loop through the images array and create a logo of each image with random coordinates
-    for (let i = 0; i < imagesURLs.length ; i++){
-        x = random.range(0,width - 150); // random x coordinate between 0 and width
-        y = random.range(0,height - 150); // random y coordinate between 0 and height
+    if (!created) {
+        // Loop through the images array and create a logo of each image with random coordinates
+        for (let i = 0; i < imagesURLs.length ; i++){
+            x = random.range(0,width - 150); // random x coordinate between 0 and width
+            y = random.range(0,height - 150); // random y coordinate between 0 and height
 
-        particle = new Particle({ x, y, radius: radius[i], imageURL: imagesURLs[i] }); // create a particle with the image
+            particle = new Particle({ x, y, radius: radius[i], imageURL: imagesURLs[i] }); // create a particle with the image
 
-        particles.push(particle);
+            particles.push(particle);
+            created = true;
+        }
     }
+
 
     canvas.addEventListener('mousemove', onMouseMove);
 
@@ -243,6 +247,8 @@ const sketch = ({ width, height, canvas }) => {
         })
     };
 };
+
+let created = false;
 
 export default function CanvasStack() {
     const canvasRef = React.useRef(null);
