@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 
 import { allPages } from "contentlayer/generated";
 import { Header } from "../../components/Header";
-import Mentality from "../../components/Content/Mentality";
-import Stack from "../../components/Content/Stack";
-import Formation from "../../components/Content/Formation";
-import Aspiration from "../../components/Content/Aspiration";
+import Mentality from "../../components/Pages/Mentality";
+import Stack from "../../components/Pages/Stack";
+import Formation from "../../components/Pages/Formation";
+import Aspiration from "../../components/Pages/Aspiration";
 
 
 type Props = {
