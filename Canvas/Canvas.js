@@ -211,7 +211,7 @@ export default function Canvas() {
           imgAContext = null;
           imgBContext = null;
           canvasDiv?.removeChild(nodeCanvas);
-          canvasDiv.innerHTML = '';
+          // canvasDiv.innerHTML = '';
           canvasDiv?.remove();
           // instance.stop();
           // setCanvasSketchInstance(null);

@@ -71,7 +71,7 @@ export default function RootLayout({
     >
       {/* <head/> */}
       <link href="/_next/static/css/app/layout.css?v=1683600244618" rel="preload" as="style" />
-      <body className="bg-white antialiased max-w-[100wh] mb-20 flex flex-col md:flex-row mx-1 lg:mx-auto">
+      <body className="bg-white antialiased max-w-[100wh] flex flex-col md:flex-row mx-1 lg:mx-auto">
         <main className="bg-white flex-auto min-w-0 md:mt-0 flex flex-col px-2 md:px-0">
           {children}
           <Analytics />

@@ -1,4 +1,5 @@
 "use client";
+
 import { ArrowLeft, Eye, Github, Twitter } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
@@ -88,7 +89,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 					</div>
 
 					<Link
-						href="/projects"
+						href="/experience"
 						className={`duration-200 hover:font-medium ${
 							isIntersecting
 								? " text-zinc-400 hover:text-zinc-100"

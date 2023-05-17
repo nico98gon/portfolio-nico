@@ -36,7 +36,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./.contentlayer/generated"
-, "Canvas/Canvas.js"  ],
+, "Canvas/Canvas.js", "components/Content/Formation.tsx"  ],
   "exclude": [
     "node_modules"
   ]

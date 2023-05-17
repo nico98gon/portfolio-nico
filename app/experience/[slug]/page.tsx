@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+
 import { allProjects } from "contentlayer/generated";
 import { Mdx } from "../../../components/mdx";
 import { Header } from "./header";
