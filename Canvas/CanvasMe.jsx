@@ -50,7 +50,7 @@ class Particle {
 
         //pull force
         dx = this.ix - this.x;
-        dy = this.iy - this.y  + scrollPosition;
+        dy = this.iy - this.y + scrollPosition;
         dd = Math.sqrt( dx * dx + dy * dy );
 
         this.ax = dx * this.pullFactor;
@@ -61,8 +61,10 @@ class Particle {
         this.color = this.colMap(math.mapRange(dd, 0, 200, 0, 1, true));
 
         // push force
-        dx = this.x - cursor.x + (scrollPosition * random.range(2, 4));
-        dy = this.y - cursor.y + (scrollPosition * random.range(5, 10));
+        dx = this.x - cursor.x;
+        dy = this.y - cursor.y + scrollPosition;
+        // dx = (this.x - cursor.x) * random.range(0.5, 1);
+        // dy = (this.y - cursor.y + scrollPosition) * random.range(0.5, 1);
         dd = Math.sqrt( dx * dx + dy * dy );
 
         distDelta = this.minDist - dd;
@@ -95,14 +97,6 @@ class Particle {
     }
 }
 
-const onMouseMove = (e) => {
-    const x = (e.offsetX / elCanvas.offsetWidth) * elCanvas.width;
-    const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
-
-    cursor.x = x;
-    cursor.y = y + scrollPosition;
-};
-
 let scrollPosition = 0;
 
 function updateScrollPosition() {
@@ -113,6 +107,14 @@ function updateScrollPosition() {
     });
 }
 
+const onMouseMove = (e) => {
+    const x = (e.offsetX / elCanvas.offsetWidth) * elCanvas.width;
+    const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
+
+    cursor.x = x;
+    cursor.y = y + scrollPosition;
+};
+
 let created = false;
 
 let imgA, imgB, imgAContext, imgBContext;
@@ -122,11 +124,11 @@ let imgBCanvas = document.createElement('canvas');
 
 const sketch = ({ canvas }) => {
     let x, y, particle, radius;
-    const numCircles = 20;
-    const gapCircle = 8;
+    const numCircles = 16;
+    const gapCircle = 12;
     const gapDot = 5;
     let dotRadius = 4;
-    let cirRadius = 0;
+    let cirRadius = 2;
     const fitRadius = dotRadius;
     let xInitialPosition;
 
@@ -198,7 +200,7 @@ const sketch = ({ canvas }) => {
                 b = imgAData[idx + 2];
                 colA = `rgb(${r}, ${g}, ${b})`
 
-                radius = math.mapRange(r, 0, 255, 3, 9); //(r, 0, 255, 7, 7)
+                radius = math.mapRange(r, 0, 255, 3, 7); //(r, 0, 255, 7, 7)
 
                 ix = Math.floor((x / width) * imgB.width);
                 iy = Math.floor((y / height) * imgB.height);
