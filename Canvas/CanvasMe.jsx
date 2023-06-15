@@ -5,7 +5,6 @@ import canvasSketch from 'canvas-sketch';
 import random from 'canvas-sketch-util/random';
 import math from 'canvas-sketch-util/math';
 import eases from 'eases';
-import colormap from 'colormap';
 import interpolate from 'color-interpolate';
 
 import { useScreenHeight } from "../hooks/useScreenHeight";
@@ -17,7 +16,7 @@ const particles = [];
 const cursor = { x: 9999, y: 9999 };
 
 class Particle {
-    constructor({ x, y, radius = 10, colMap }) {
+    constructor({ x, y, radius = 10, colMap, xInitialPosition}) {
         //postiion
         this.x = x; 
         this.y = y;
@@ -31,7 +30,7 @@ class Particle {
         this.vy = 0;
 
         //initial position
-        this.ix = x + 160; 
+        this.ix = x + xInitialPosition;
         this.iy = y + 40;
 
         this.radius = radius;
@@ -121,7 +120,7 @@ let imgA, imgB, imgAContext, imgBContext;
 let imgACanvas = document.createElement('canvas');
 let imgBCanvas = document.createElement('canvas');
 
-const sketch = ({ width, height, canvas }) => {
+const sketch = ({ canvas }) => {
     let x, y, particle, radius;
     const numCircles = 20;
     const gapCircle = 8;
@@ -129,6 +128,25 @@ const sketch = ({ width, height, canvas }) => {
     let dotRadius = 4;
     let cirRadius = 0;
     const fitRadius = dotRadius;
+    let xInitialPosition;
+
+    let width = canvas.width;
+    let height = canvas.height;
+
+    if ( width < 500 ) {
+        xInitialPosition = -80;
+    }
+    else if ( width < 800 ) {
+        xInitialPosition = 95;
+    }
+    else if ( width < 1050 ) {
+        xInitialPosition = 20;
+    }
+    else if ( width < 1500 ) {
+        xInitialPosition = 90;
+    } else {
+        xInitialPosition = 160;
+    }
 
     elCanvas = canvas;
 
@@ -180,7 +198,7 @@ const sketch = ({ width, height, canvas }) => {
                 b = imgAData[idx + 2];
                 colA = `rgb(${r}, ${g}, ${b})`
 
-                radius = math.mapRange(r, 0, 255, 3, 9);
+                radius = math.mapRange(r, 0, 255, 3, 9); //(r, 0, 255, 7, 7)
 
                 ix = Math.floor((x / width) * imgB.width);
                 iy = Math.floor((y / height) * imgB.height);
@@ -197,7 +215,7 @@ const sketch = ({ width, height, canvas }) => {
                     updateScrollPosition();
                 });
 
-                particle = new Particle({ x, y, radius, colMap });
+                particle = new Particle({ x, y, radius, colMap, xInitialPosition });
                 particles.push(particle);
 
             }
@@ -230,9 +248,9 @@ export default function CanvasMe() {
     
     const [imgLoaded, setImgLoaded] = useState(false);
 
-    const screenHeight = useScreenHeight();
     const screenWidth = useScreenWidth();
-    
+    const screenHeight = useScreenHeight();
+
     useEffect(() => {
         const loadImage = async (url) => {
             return new Promise((resolve, reject) => {
@@ -259,7 +277,6 @@ export default function CanvasMe() {
 
             const settings = {
                 dimensions: [screenWidth, screenHeight],
-                orientation: 'landscape',
                 animate: true,
                 fps: 144,
                 canvas: canvas, // use existing canvas element

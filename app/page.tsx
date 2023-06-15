@@ -12,9 +12,7 @@ export default function Page() {
   return (
     <>
       <section className='bg-black h-screen w-screen flex flex-col'>
-        <div className='hidden lg:flex'>
-          <CanvasMe />
-        </div>
+        <CanvasMe />
         <AboutMe />
       </section>
       <section className='relative bg-white h-fit w-screen z-10'>
