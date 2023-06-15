@@ -39,11 +39,15 @@ export default function AboutMe() {
         <motion.section
             style={{ opacity }}
             ref={targetRef}
-            className="fixed mt-[60px] sm:mt-[160px] flex-grow sm:ml-[70%] z-10"
+            className="fixed mt-[60px] md:mt-[140px] lg:mt-[90px] xl:mt-[130px] 2xl:mt-[160px] flex-grow md:ml-[45%] lg:ml-[70%] z-10"
         >
             <motion.div
                 style={{ scale, x: "-50%" }}
-                className='w-[340px] ml-[60%] sm:w-full sm:ml-0'
+                className='w-[85%] ml-[50%] bg-white/10 backdrop-filter backdrop-blur-lg rounded-2xl p-4
+                md:ml-[10%] md:w-[140%]
+                lg:w-[120%] lg:ml-[25%] lg:bg-transparent lg:backdrop-blur-none
+                xl:ml-[15%]
+                2xl:w-full 2xl:ml-0'
             >
                 <h1 className="font-bold text-3xl font-serif">{name}</h1>
                 <p className="my-5 max-w-[720px] sm:max-w-[460px] text-neutral-800 dark:text-neutral-200">
