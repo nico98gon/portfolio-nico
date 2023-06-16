@@ -30,12 +30,21 @@ export const Card: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<motion.div
 			ref={cardRef}
-			className="overflow-hidden relative duration-700 border rounded-xl hover:bg-zinc-900 group md:gap-8 hover:border-white border-zinc-600"
+			className="overflow-hidden
+				relative
+				duration-700
+				border
+				rounded-xl
+				hover:bg-zinc-900
+				group
+				md:gap-8
+				hover:border-white
+				border-zinc-600"
 			onMouseMove={onMouseMove}
 			style={{ maskImage, WebkitMaskImage: maskImage }}
 		>
 			<motion.div
-				className="absolute inset-0 z-10 bg-gradient-to-br opacity-0 via-zinc-100/10"
+				className="absolute inset-0 bg-gradient-to-br opacity-0 via-zinc-100/10 pointer-events-none"
 				animate={{
 				opacity: mouseX.get() ? 0.5 : 0,
 				scale: mouseX.get() ? 1.2 : 1,

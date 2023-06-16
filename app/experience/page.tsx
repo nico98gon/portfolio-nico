@@ -5,7 +5,8 @@ import { Redis } from "@upstash/redis";
 import { ArrowLeft, Eye } from "lucide-react";
 
 import { Article } from "./article";
-import { Card } from "../../components/card";
+import { Card } from "../../components/Card";
+
 
 
 const redis = Redis.fromEnv();
@@ -81,8 +82,8 @@ export default async function page() {
     
                     <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
                         <Card>
-                            <Link href={`/experience/${featured.slug}`}>
-                                <article className="relative h-full w-full p-4 md:p-8">
+                            <Link href={`/experience/${featured.slug}`} prefetch={false}>
+                                <article className="relative h-full w-full z-10 p-4 md:p-8">
                                     <div className="flex justify-between gap-2 items-center">
                                         <div className="text-xs text-zinc-100">
                                             {featured.date ? (

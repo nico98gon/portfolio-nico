@@ -18,12 +18,12 @@ export default function Titles() {
                 </li>
 
                 {pages.sort((a, b) => b.title.localeCompare(a.title)).map((page) => (
-                    <li key={page.slug} className={`my-12 sm:my-8 w-[94%] sm:w-[85%] md:w-[75%] lg:w-[65%] pl-2 sm:p-4 2xl:p-0 ${page.title === "work mentality" || page.title === "study formation" ? "sm:float-right" : "sm:float-left"}`}>
-                        <Link href={`/${page.slug}`} passHref>
+                    <Link key={page.slug} href={`/${page.slug}`} passHref>
+                        <li className={`my-12 sm:my-8 w-[94%] sm:w-[85%] md:w-[75%] lg:w-[65%] pl-2 sm:p-4 2xl:p-0 ${page.title === "work mentality" || page.title === "study formation" ? "sm:float-right" : "sm:float-left"}`}>
                             <h1 className="flex items-baseline gap-2 text-black font-bold text-4xl sm:text-5xl"><ArrowIcon />{page.title}</h1>
-                        </Link>
-                        <h1 className="text-rose text-lg mt-5 sm:ml-12">{page.description}</h1>
-                    </li>
+                            <h1 className="text-rose text-lg mt-5 sm:ml-12">{page.description}</h1>
+                        </li>
+                    </Link>
                 ))}
             </ul>
         </>
