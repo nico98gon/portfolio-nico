@@ -43,9 +43,9 @@ export default function AboutMe() {
         >
             <motion.div
                 style={{ scale, x: "-50%" }}
-                className='w-[85%] ml-[50%] bg-white/10 backdrop-filter-none backdrop-blur-lg rounded-2xl p-4
+                className='w-[85%] ml-[50%] bg-white/10 backdrop-filter backdrop-blur-lg rounded-2xl p-4
                 md:ml-[10%] md:w-[140%]
-                lg:w-[120%] lg:ml-[25%] lg:bg-transparent lg:backdrop-blur-none
+                lg:w-[120%] lg:ml-[25%] lg:bg-transparent lg:backdrop-filter-none lg:backdrop-blur-none
                 xl:ml-[15%]
                 2xl:w-full 2xl:ml-0'
             >
