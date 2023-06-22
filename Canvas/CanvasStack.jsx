@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import canvasSketch from 'canvas-sketch';
 import { random } from 'canvas-sketch-util';
+import useScreenWidth from "../hooks/useScreenWidth";
 
 function loadImage(url) {
     return new Promise(r => { let i = new Image(); i.onload = (() => r(i)); i.src = url; });
@@ -190,7 +191,7 @@ const onMouseMove = (e) => {
 
 let elCanvas;
 const particles = [];
-const radius = [180, 150, 70, 96, 120, 90, 80, 105, 145, 170, 75, 95, 90, 85, 90, 110, 110, 70];
+let radius = [180, 150, 70, 96, 120, 90, 80, 105, 145, 170, 75, 95, 90, 85, 90, 110, 110, 70];
 const imagesURLs = [
     'https://seeklogo.com/images/N/next-js-icon-logo-EE302D5DBD-seeklogo.com.png',
     'http://www.agersi.com/wp-content/uploads/2021/05/React.png',
@@ -215,8 +216,8 @@ const imagesURLs = [
 const sketch = ({ width, height, canvas }) => {
     let x, y, particle;
 
-    canvas.style.width = "1248px";
-    canvas.style.height = "600px";
+    canvas.style.width = width;
+    canvas.style.height = height;
 
     elCanvas = canvas;
 
@@ -239,7 +240,7 @@ const sketch = ({ width, height, canvas }) => {
     return ({ context, width, height }) => {
 
         // Clean background canvas
-        context.fillStyle = 'white';
+        context.fillStyle = '#FFFAFA';
         context.fillRect(0, 0, width, height);
 
         particles.forEach( particle => {
@@ -254,11 +255,53 @@ let created = false;
 export default function CanvasStack() {
     const canvasRef = React.useRef(null);
 
+    let width;
+    let height;
+
+    const screenWidth = useScreenWidth();
+
+    if ( screenWidth < 500 ) {
+        width = 420;
+        height = 650;
+
+        for (let i = 0; i < radius.length; i++) {
+            radius[i] = radius[i] * 0.65;
+        }
+
+    } else if ( screenWidth < 800 ) {
+        width = 720;
+        height = 650;
+
+        for (let i = 0; i < radius.length; i++) {
+            radius[i] = radius[i] * 0.75;
+        }
+
+    } else if ( screenWidth < 1050 ) {
+        width = 1020;
+        height = 600;
+
+        for (let i = 0; i < radius.length; i++) {
+            radius[i] = radius[i] * 0.85;
+        }
+
+    } else if ( screenWidth < 1500 ) {
+        width = 1248;
+        height = 600;
+
+        for (let i = 0; i < radius.length; i++) {
+            radius[i] = radius[i] * 0.9;
+        }
+
+    } else {
+        width = 1248;
+        height = 600;
+    }
+
     useEffect(() => {
         const canvas = canvasRef.current;
 
         const settings = {
-            dimensions: [1248, 600],
+            dimensions: [width, height],
             animate: true,
             canvas: canvas, // use existing canvas element
         };
