@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer/hooks";
 
 import Stack from "../components/Pages/Stack";
+import Tshape from "../components/Tshape";
 
 
 function clsx(...args: any) {
@@ -164,7 +165,8 @@ const components = {
 		/>
 	),
 	Image,
-	Stack
+	Stack,
+	Tshape,
 };
 
 interface MdxProps {
