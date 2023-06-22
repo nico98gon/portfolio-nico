@@ -41,7 +41,7 @@ class Particle {
         const radius = this.radius;
         let dx, dy, dd, distDelta;
         const friction = 0.2;
-        const maxAcc = 2;
+        const maxAcc = 1;
         let damping = 0.000018 * radius;
 
 
@@ -69,6 +69,9 @@ class Particle {
                     let v1a = Math.atan2(this.vy, this.vx);
                     let v2r = Math.sqrt(otherParticle.vx * otherParticle.vx + otherParticle.vy * otherParticle.vy);
                     let v2a = Math.atan2(otherParticle.vy, otherParticle.vx);
+                    // calculate the masses of the particles (assuming they are proportional to the radius)
+                    let m1 = this.radius;
+                    let m2 = otherParticle.radius;
                     // calculate the parallel and perpendicular components of the initial velocities
                     let v1p = v1r * Math.cos(v1a - collisionAngle);
                     let v1n = v1r * Math.sin(v1a - collisionAngle);
@@ -76,13 +79,10 @@ class Particle {
                     let v2n = v2r * Math.sin(v2a - collisionAngle);
                     // define the coefficient of restitution
                     let e = 0.95;
-                    // calculate the masses of the particles (assuming they are proportional to the radius)
-                    let m1 = this.radius;
-                    let m2 = otherParticle.radius;
-                    // calculate the parallel components of the final velocities using the general formula
-                    let u1p = ((v1p * (m1 - e * m2)) + (v2p * (1 + e) * m2)) / (m1 + m2);
-                    let u2p = ((v2p * (m2 - e * m1)) + (v1p * (1 + e) * m1)) / (m1 + m2);
-                    // calculate the perpendicular components of the final velocities (they are equal to the initial ones)
+                    // calculate the parallel components of the final velocities using the adjusted formula
+                    let u1p = (v1p * (m1 - e * m2) + 2 * m2 * v2p) / (m1 + m2);
+                    let u2p = (v2p * (m2 - e * m1) + 2 * m1 * v1p) / (m1 + m2);
+                    // calculate the perpendicular components of the final velocities (they remain the same)
                     let u1n = v1n;
                     let u2n = v2n;
                     // convert the parallel and perpendicular components of the final velocities to cartesian coordinates
@@ -90,11 +90,11 @@ class Particle {
                     let u1y = u1p * Math.sin(collisionAngle) + u1n * Math.sin(collisionAngle + Math.PI / 2);
                     let u2x = u2p * Math.cos(collisionAngle) + u2n * Math.cos(collisionAngle + Math.PI / 2);
                     let u2y = u2p * Math.sin(collisionAngle) + u2n * Math.sin(collisionAngle + Math.PI / 2);
-                    // apply the final velocities to the particles
-                    this.vx = u1x;
-                    this.vy = u1y;
-                    otherParticle.vx = u2x;
-                    otherParticle.vy = u2y;
+                    // apply the final velocities to the particles, taking into account the mass
+                    this.vx = u1x / m1;
+                    this.vy = u1y / m1;
+                    otherParticle.vx = u2x / m2;
+                    otherParticle.vy = u2y / m2;
                     // move the particles away from each other to avoid overlapping
                     let overlapDistance = (this.radius * 0.5 + otherParticle.radius * 0.5) - dd2;
                     let moveX = overlapDistance * Math.cos(collisionAngle) / 2;
@@ -190,11 +190,11 @@ const onMouseMove = (e) => {
 
 let elCanvas;
 const particles = [];
-const radius = [180, 150, 70, 96, 120, 90, 80, 105, 145, 170, 75, 95, 90, 85, 90, 110, 110];
+const radius = [180, 150, 70, 96, 120, 90, 80, 105, 145, 170, 75, 95, 90, 85, 90, 110, 110, 70];
 const imagesURLs = [
     'https://seeklogo.com/images/N/next-js-icon-logo-EE302D5DBD-seeklogo.com.png',
     'http://www.agersi.com/wp-content/uploads/2021/05/React.png',
-    'https://assets.stickpng.com/images/62a765a3bd73a4af5c5d4fba.png',
+    'https://dzone.com/storage/temp/13130265-jest-logo-png-transparent.png',
     'https://logodownload.org/wp-content/uploads/2022/04/javascript-logo-1.png',
     'https://repository-images.githubusercontent.com/347723622/92065800-865a-11eb-9626-dff3cb7fef55',
     'https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/node-512.png',
@@ -209,6 +209,7 @@ const imagesURLs = [
     'https://code4developers.com/wp-content/uploads/2019/10/MongoDBicon.png',
     'https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/html5-512.png',
     'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_1280.png',
+    'https://i0.wp.com/kirkstrobeck.github.io/whatismarkdown.com/img/markdown.png',
 ];
 
 const sketch = ({ width, height, canvas }) => {
