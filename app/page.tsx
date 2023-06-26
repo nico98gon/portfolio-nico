@@ -14,7 +14,9 @@ export default function Page() {
       <section className='bg-black h-screen w-screen flex flex-col'>
         <CanvasMe />
         <AboutMe />
-        <div className="scroll-indicator">↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+        <div className="scroll-indicator">
+          ↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓
+        </div>
       </section>
       <section className='relative bg-white h-fit w-screen z-10'>
         <div className="max-w-7xl flex flex-col md:flex-row lg:mx-auto py-32">

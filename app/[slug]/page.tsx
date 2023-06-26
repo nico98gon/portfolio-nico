@@ -38,7 +38,7 @@ export default function page({ params }: Props) {
                 {
                     foundPage.title === "work mentality" ? <Mentality />
                     // : foundPage.title === "technology stack" ? <Stack />
-                    : foundPage.title === "study formation" ? <Formation />
+                    // : foundPage.title === "study formation" ? <Formation />
                     : foundPage.title === "personal aspiration" ? <Aspiration />
                     : null
                 }

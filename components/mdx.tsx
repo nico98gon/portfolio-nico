@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer/hooks";
 
 import Stack from "../components/Pages/Stack";
+import Formation from "../components/Pages/Formation";
 import Tshape from "../components/Tshape";
 
 
@@ -167,6 +168,7 @@ const components = {
 	Image,
 	Stack,
 	Tshape,
+	Formation,
 };
 
 interface MdxProps {
