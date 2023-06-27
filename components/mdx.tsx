@@ -6,6 +6,7 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 
 import Stack from "../components/Pages/Stack";
 import Formation from "../components/Pages/Formation";
+import Mentality from "../components/Pages/Mentality";
 import Tshape from "../components/Tshape";
 
 
@@ -169,6 +170,7 @@ const components = {
 	Stack,
 	Tshape,
 	Formation,
+	Mentality,
 };
 
 interface MdxProps {

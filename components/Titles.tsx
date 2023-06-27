@@ -19,7 +19,7 @@ export default function Titles() {
                             </div>
                         </Link>
                     </h1>
-                    <h1 className="text-rose text-base sm:text-lg mt-5 sm:ml-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut esse tempore dicta doloribus amet non harum, iste neque! Placeat id assumenda maxime magni vel reiciendis rem perferendis hic aut nostrum?</h1>
+                    <h1 className="text-rose text-base sm:text-lg mt-5 sm:ml-12">I invite you to explore into the projects I have been involved in over the past years, as they have been instrumental in developing both my technical and soft skills that I possess today</h1>
                 </li>
 
                 {pages.sort((a, b) => b.title.localeCompare(a.title)).map((page) => (
