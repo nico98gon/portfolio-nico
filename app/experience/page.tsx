@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import { allProjects } from "contentlayer/generated";
 import { Redis } from "@upstash/redis";
 import { ArrowLeft, Eye } from "lucide-react";
