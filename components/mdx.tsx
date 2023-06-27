@@ -5,7 +5,6 @@ import Link from "next/link";
 import dynamic from 'next/dynamic';
 import { useMDXComponent } from "next-contentlayer/hooks";
 
-// import Stack from "../components/Pages/Stack";
 const Stack = dynamic( () => import('../Canvas/CanvasStack'), { ssr: false } );
 import Formation from "../components/Pages/Formation";
 import Mentality from "../components/Pages/Mentality";
