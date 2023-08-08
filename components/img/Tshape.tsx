@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import tShape from "../public/img/T-shape.jpg";
+import tShape from "../../public/img/T-shape.jpg";
 
 
 export default function Tshape() {

@@ -66,7 +66,7 @@ export default function AboutMe() {
                     <a
                         rel="noopener noreferrer"
                         target="_blank"
-                        href="https://twitter.com/leeerob"
+                        href="https://twitter.com/Nicommit_"
                         className="flex items-center gap-2"
                     >
                         <TwitterIcon />
@@ -75,7 +75,7 @@ export default function AboutMe() {
                     <a
                         rel="noopener noreferrer"
                         target="_blank"
-                        href="https://github.com/leerob"
+                        href="https://github.com/nico98gon"
                         className="flex items-center gap-2"
                     >
                         <GitHubIcon />

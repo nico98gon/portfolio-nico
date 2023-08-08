@@ -8,7 +8,11 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 const Stack = dynamic( () => import('../Canvas/CanvasStack'), { ssr: false } );
 import Formation from "../components/Pages/Formation";
 import Mentality from "../components/Pages/Mentality";
-import Tshape from "../components/Tshape";
+import Tshape from "./img/Tshape";
+import ComercioSanJuanComp from "./img/ComercioSanJuan";
+import MiroComercioSJ from "./img/MiroComercioSJ";
+import MiroComercioSJ2 from "./img/MiroComercioSJ2";
+import TrelloComercioSanJuan from "./img/TrelloComercioSanJuan";
 
 
 function clsx(...args: any) {
@@ -172,6 +176,10 @@ const components = {
 	Tshape,
 	Formation,
 	Mentality,
+	ComercioSanJuanComp,
+	MiroComercioSJ,
+	MiroComercioSJ2,
+	TrelloComercioSanJuan,
 };
 
 interface MdxProps {

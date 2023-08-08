@@ -41,8 +41,8 @@
 //   });
 
 //   const req = await octokit.request('GET /repos/{owner}/{repo}', {
-//     owner: 'leerob',
-//     repo: 'leerob.io',
+//     owner: 'Nico',
+//     repo: 'nicogon.com.ar',
 //   });
 
 //   return req.data.stargazers_count;
