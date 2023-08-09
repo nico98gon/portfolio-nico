@@ -29,6 +29,9 @@ export default async function PostPage({ params }: Props) {
 	const slug = params?.slug;
 	const project = allProjects.find((project) => project.slug === slug);
 
+	console.log('slug', slug);
+	console.log('project', project);
+
 	if (!project) {
 		notFound();
 	}

@@ -27,7 +27,7 @@ export default async function page() {
         (project) => project.slug === "comercioSJ",
     )!;
     const top2 = allProjects.find((project) => project.slug === "blogeate")!;
-    const top3 = allProjects.find((project) => project.slug === "nicommit")!;
+    const top3 = allProjects.find((project) => project.slug === "nicogon")!;
     const noCode1 = allProjects.find((project) => project.slug === "MiBot")!;
     const noCode2 = allProjects.find((project) => project.slug === "MiningGPU")!;
     const noCode3 = allProjects.find((project) => project.slug === "ServerCloudGPU")!;

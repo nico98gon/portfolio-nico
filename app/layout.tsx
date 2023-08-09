@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nico Gonzalez',
     description: 'Frontend developer, designer and backend dev',
-    url: 'https://nicommit.com',
+    url: 'https://nicogon.com.ar',
     siteName: 'Nico Gonzalez',
     images: [
       {

@@ -13,6 +13,7 @@ import ComercioSanJuanComp from "./img/ComercioSanJuan";
 import MiroComercioSJ from "./img/MiroComercioSJ";
 import MiroComercioSJ2 from "./img/MiroComercioSJ2";
 import TrelloComercioSanJuan from "./img/TrelloComercioSanJuan";
+import PortfolioInspirations from "./img/PortfolioInspirations";
 
 
 function clsx(...args: any) {
@@ -180,6 +181,7 @@ const components = {
 	MiroComercioSJ,
 	MiroComercioSJ2,
 	TrelloComercioSanJuan,
+	PortfolioInspirations,
 };
 
 interface MdxProps {
