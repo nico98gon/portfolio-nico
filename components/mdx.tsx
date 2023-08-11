@@ -14,6 +14,7 @@ import MiroComercioSJ from "./img/MiroComercioSJ";
 import MiroComercioSJ2 from "./img/MiroComercioSJ2";
 import TrelloComercioSanJuan from "./img/TrelloComercioSanJuan";
 import PortfolioInspirations from "./img/PortfolioInspirations";
+import Blogeate from "./img/Blogeate";
 
 
 function clsx(...args: any) {
@@ -182,6 +183,7 @@ const components = {
 	MiroComercioSJ2,
 	TrelloComercioSanJuan,
 	PortfolioInspirations,
+	Blogeate,
 };
 
 interface MdxProps {
