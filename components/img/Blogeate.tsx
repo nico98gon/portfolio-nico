@@ -8,9 +8,9 @@ import sanityPost from "../../public/img/sanity-blog-post.png";
 export default function Blogeate() {
     return (
         <>
-            <Image className="mt-24 mr-[-250px]" src={sanityStudio} width={600} height={600} alt="miro functionalities tree" quality={100} />
-            <Image className="z-10" src={sanity} width={600} height={600} alt="miro functionalities tree" quality={100} />
-            <Image className="mt-24 ml-[-275px]" src={sanityPost} width={600} height={600} alt="miro functionalities tree" quality={100} />
+            <Image className="mt-24 mr-[-250px]" src={sanityStudio} width={600} height={600} alt="blogeate page image" quality={100} />
+            <Image className="z-10" src={sanity} width={600} height={600} alt="blogeate page image" quality={100} />
+            <Image className="mt-24 ml-[-275px]" src={sanityPost} width={600} height={600} alt="blogeate page image" quality={100} />
         </>
     )
 }
