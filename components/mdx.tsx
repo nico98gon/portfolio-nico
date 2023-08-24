@@ -18,6 +18,10 @@ import Blogeate from "./img/Blogeate";
 import Bluecoast from "./img/Bluecoast";
 import Farm from "./img/Farm";
 import ServerCloud from "./img/ServerCloud";
+import MiBotCommunity from "./img/MiBotCommunity";
+import MiBotDocumentation from "./img/MiBotDocumentation";
+import MiBotStatistics from "./img/MiBotStatistics";
+import MiBotBTC from "./img/MiBotBTC";
 
 
 function clsx(...args: any) {
@@ -190,6 +194,10 @@ const components = {
 	Bluecoast,
 	Farm,
 	ServerCloud,
+	MiBotCommunity,
+	MiBotDocumentation,
+	MiBotStatistics,
+	MiBotBTC,
 };
 
 interface MdxProps {
