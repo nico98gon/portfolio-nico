@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 
 import Titles from '../components/Titles';
 import AboutMe from '../components/AboutMe';
+import Footer from '../components/Footer';
 const CanvasMe = dynamic( () => import('../Canvas/CanvasMe'), { ssr: false } );
 
 
@@ -23,6 +24,9 @@ export default function Page() {
           <Titles />
         </div>
       </section>
+      <footer className='relative bg-black h-fit w-screen z-10'>
+        <Footer />
+      </footer>
     </>
   )
 }
