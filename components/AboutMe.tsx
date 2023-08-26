@@ -1,14 +1,18 @@
 'use client'
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useTransform, useScroll  } from "framer-motion";
+import useSWR from 'swr';
 
 // import { getBlogViews, getTweetCount, getStarCount } from '../lib/metrics';
+import { getStarCount } from '../lib/metrics';
 import { name, about, bio, avatar } from '../lib/info';
 import { ArrowIcon, GitHubIcon, TwitterIcon, ViewsIcon } from '../components/icons';
 
+
+const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json());
 
 export default function AboutMe() {
     const targetRef = useRef<HTMLDivElement>(null);
@@ -17,23 +21,40 @@ export default function AboutMe() {
         offset: ["end end", "end start"],
     });
 
+    const [starCount, setStarCount] = useState<number | null>(null);
+    // const [tweetCount, setTweetCount] = useState<number | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    const { data: tweetData, error: tweetError } = useSWR(
+        '/api/tweet-count',
+        fetcher
+    )
+
     const opacity = useTransform(scrollYProgress, [0.4, 1.6], [1, 0]);
     const scale = useTransform(scrollYProgress, [0.5, 1], [1.05, 0.9]);
     // const position = useTransform(scrollYProgress, (pos) => {
     //     return pos === 1 ? "relative" : "fixed";
     // });
 
-    // let starCount, views, tweetCount;
-
-    // try {
-    //   [starCount, views, tweetCount] = await Promise.all([
-    //     getStarCount(),
-    //     getBlogViews(),
-    //     getTweetCount(),
-    //   ]);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                // [starCount, views, tweetCount] = await Promise.all([
+                const [starCountResult] = await Promise.all([
+                    getStarCount(),
+                    // getBlogViews(),
+                    // getTweetCount(),
+                ]);
+                setStarCount(starCountResult);
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                setLoading(false);
+            }
+        }
+        
+        fetchData();
+    }, []);
 
     return (
         <motion.section
@@ -70,16 +91,20 @@ export default function AboutMe() {
                         className="flex items-center gap-2"
                     >
                         <TwitterIcon />
-                        {/* {`${tweetCount.toLocaleString()} tweets all time`} */}
+                        { tweetError ? (<p>404</p>) : 
+                            !tweetData ? (<p>Loading...</p>) : (
+                            <p>{`${tweetData?.tweetCount?.toLocaleString()} tweets all time`}</p>
+                        )}
+                        {/* { loading? 'loading...' : `${tweetCount?.toLocaleString()} tweets all time` } */}
                     </a>
                     <a
                         rel="noopener noreferrer"
                         target="_blank"
-                        href="https://github.com/nico98gon"
+                        href="https://github.com/nico98gon/portfolio-nico"
                         className="flex items-center gap-2"
                     >
                         <GitHubIcon />
-                        {/* {`${starCount.toLocaleString()} stars on this repo`} */}
+                        { loading? 'loading...' : `${starCount?.toLocaleString()} stars on this repo` }
                     </a>
                     <Link href="/blog" className="flex items-center">
                         <ViewsIcon />

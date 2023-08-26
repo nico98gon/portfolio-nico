@@ -194,7 +194,7 @@ const particles = [];
 let radius = [180, 150, 70, 96, 120, 90, 80, 105, 145, 170, 75, 95, 90, 85, 90, 110, 110, 70];
 const imagesURLs = [
     'https://seeklogo.com/images/N/next-js-icon-logo-EE302D5DBD-seeklogo.com.png',
-    'http://www.agersi.com/wp-content/uploads/2021/05/React.png',
+    'https://cdn3.iconfinder.com/data/icons/symbol-2-1/36/122-1024.png',
     'https://dzone.com/storage/temp/13130265-jest-logo-png-transparent.png',
     'https://logodownload.org/wp-content/uploads/2022/04/javascript-logo-1.png',
     'https://repository-images.githubusercontent.com/347723622/92065800-865a-11eb-9626-dff3cb7fef55',

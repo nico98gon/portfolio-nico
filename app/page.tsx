@@ -5,11 +5,10 @@ import AboutMe from '../components/AboutMe';
 import Footer from '../components/Footer';
 const CanvasMe = dynamic( () => import('../Canvas/CanvasMe'), { ssr: false } );
 
-
 export const revalidate = 60;
 
 export default function Page() {
-
+  
   return (
     <>
       <section className='bg-black h-screen w-screen flex flex-col'>
