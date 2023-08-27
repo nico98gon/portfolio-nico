@@ -7,7 +7,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
 		mdxRs: true,
-    webpack5: true,
+    webpack5: true
   }
 }
 
