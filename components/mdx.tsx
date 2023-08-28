@@ -21,7 +21,7 @@ import ServerCloud from "./img/ServerCloud";
 import MiBotCommunity from "./img/MiBotCommunity";
 import MiBotDocumentation from "./img/MiBotDocumentation";
 import MiBotStatistics from "./img/MiBotStatistics";
-// import MiBotBTC from "./img/MiBotBTC";
+import MiBotBTC from "./img/MiBotBTC";
 
 
 function clsx(...args: any) {
@@ -197,7 +197,7 @@ const components = {
 	MiBotCommunity,
 	MiBotDocumentation,
 	MiBotStatistics,
-	// MiBotBTC,
+	MiBotBTC,
 };
 
 interface MdxProps {
