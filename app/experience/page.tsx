@@ -4,7 +4,7 @@ import { Redis } from "@upstash/redis";
 import { ArrowLeft, Eye } from "lucide-react";
 
 import { Article } from "./article";
-import { Card } from "../../components/Card";
+import { Card } from "../../components/card.tsx";
 
 
 
