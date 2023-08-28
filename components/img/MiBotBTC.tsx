@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import BTC from "../../public/img/btc.png";
+import BTC from "../../public/img/BTC_30m_1_1.PNG";
 
 
 export default function MiBotBTC() {
