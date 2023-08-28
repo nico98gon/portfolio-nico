@@ -32,7 +32,7 @@ export default async function page() {
     const noCode2 = allProjects.find((project) => project.slug === "MiningGPU")!;
     const noCode3 = allProjects.find((project) => project.slug === "ServerCloudGPU")!;
     const sorted = allProjects
-        .filter((p) => p.published)
+        // .filter((p) => p.published)
         .filter(
             (project) =>
                 project.slug !== featured.slug &&
@@ -48,7 +48,7 @@ export default async function page() {
                 new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
     );
     const sortedNoCode = allProjects
-        .filter((p) => p.published)
+        // .filter((p) => p.published)
         .filter(
             (project) =>
                 project.slug === noCode1.slug ||
