@@ -16,7 +16,7 @@ const computedFields = {
 	},
 };
 
-export const Project = defineDocumentType(() => ({
+const Project = defineDocumentType(() => ({
 	name: "Project",
 	filePathPattern: "./projects/**/*.mdx",
 	contentType: "mdx",
@@ -24,6 +24,7 @@ export const Project = defineDocumentType(() => ({
 	fields: {
 		published: {
 			type: "boolean",
+			parse: (value) => value.trim() === "true",
 		},
 		title: {
 			type: "string",
