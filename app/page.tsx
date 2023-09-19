@@ -19,7 +19,7 @@ export default function Page() {
         </div>
       </section>
       <section className='relative bg-white h-fit w-screen z-10'>
-        <div className="max-w-7xl flex flex-col md:flex-row lg:mx-auto py-32">
+        <div className="max-w-xs md:max-w-xl lg:max-w-2xl xl:max-w-5xl mx-auto py-32">
           <Titles />
         </div>
       </section>

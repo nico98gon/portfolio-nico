@@ -1,39 +1,49 @@
 import Link from "next/link";
+import Image from "next/image.js";
 
-import { ArrowIcon } from "./icons";
 import { allPages } from "../.contentlayer/generated/index.mjs";
+import experienceImage from "../public/img/sanity-blog-studio-caputre.png"
+import mentality from "../public/img/work-mentality.jpg"
+import stack from "../public/img/tech-stack.png"
+import formation from "../public/img/study-formation.jpg"
+import aspiration from "../public/img/personal-aspiration.png"
 
 
 const pages = allPages;
 
+const images = {
+    mentality: mentality,
+    stack: stack,
+    formation: formation,
+    aspiration: aspiration
+}
+
 export default function Titles() {
     return (
-        <>
-            <ul>
-                <li className="my-12 sm:my-8 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[65%] pl-2 sm:p-4 2xl:p-0 sm:float-left">
-                    <h1 className="flex items-baseline sm:gap-2 text-black font-bold text-4xl sm:text-5xl">
-                        <Link href="/experience" passHref style={{ display: "flex", alignItems: "end", gap: "0.5rem" }}>
-                            <ArrowIcon />
-                            <span>work experience</span>
-                        </Link>
-                    </h1>
-                    <h1 className="text-rose text-base sm:text-lg mt-5 sm:ml-12">I invite you to explore into the projects I have been involved in over the past years, as they have been instrumental in developing both my technical and soft skills that I possess today</h1>
-                </li>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 2xl:gap-12 mx-auto cursor-pointer">
+            <div className="max-w-sm overflow-hidden relative duration-200 border rounded hover:bg-slate-200 md:gap-8 shadow-lg">
+                <Link href="/experience" passHref>
+                    <Image className="w-full h-40" src={experienceImage} alt=""></Image>
+                    <div className="px-6 py-4">
+                        <h1 className="font-bold text-2xl mb-2 text-gray-700">work experience</h1>
+                        <p className="text-rose text-base">I invite you to explore into the projects I have been involved in over the past years, as they have been instrumental in developing both my technical and soft skills that I possess today</p>
+                    </div>
+                    <div className="h-full"></div>
+                </Link>
+            </div>
 
-                {pages.sort((a, b) => b.title.localeCompare(a.title)).map((page) => (
-                    <li key={page.slug} className={`my-12 sm:my-8 w-[94%] sm:w-[85%] md:w-[75%] lg:w-[65%] pl-2 sm:p-4 2xl:p-0
-                        ${page.title === "work mentality" || page.title === "study formation" ? "sm:float-right" : "sm:float-left"}`}
-                    >
-                        <h1 className="flex items-baseline gap-2 text-black font-bold text-4xl sm:text-5xl">
-                            <Link href={`/${page.slug}`} passHref style={{ display: "flex", alignItems: "end", gap: "0.5rem" }}>
-                                <ArrowIcon />
-                                <span>{ page.title }</span>
-                            </Link>
-                        </h1>
-                        <h1 className="text-rose text-lg mt-5 sm:ml-12">{page.description}</h1>
-                    </li>
-                ))}
-            </ul>
-        </>
+            {pages.sort((a, b) => b.title.localeCompare(a.title)).map((page) => (
+                <div key={page.slug} className="max-w-sm overflow-hidden relative duration-200 border rounded hover:bg-slate-200 md:gap-8 shadow-lg">
+                    <Link href={`/${page.slug}`} passHref>
+                        <Image className="w-full h-40" src={images[page.slug as keyof typeof images]} alt=""></Image>
+                        <div className="px-6 py-4">
+                            <h1 className="font-bold text-2xl mb-2 text-gray-700">{ page.title }</h1>
+                            <p className="text-rose text-base">{page.description}</p>
+                        </div>
+                        <div className="h-full"></div>
+                    </Link>
+                </div>
+            ))}
+        </div>
     )
 }
