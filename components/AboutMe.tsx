@@ -26,7 +26,7 @@ export default function AboutMe() {
     const [loading, setLoading] = useState(true);
 
     const { data: tweetData, error: tweetError } = useSWR(
-        '/api/tweet-count',
+        '/pages/api/tweet-count',
         fetcher
     )
 
@@ -93,9 +93,10 @@ export default function AboutMe() {
                         <TwitterIcon />
                         { tweetError ? (<p>404</p>) : 
                             !tweetData ? (<p>Loading...</p>) : (
-                            <p>{`${tweetData?.tweetCount?.toLocaleString()} tweets all time`}</p>
+                            <p>{tweetData?.tweetCount?.toLocaleString()}</p>
                         )}
-                        {/* { loading? 'loading...' : `${tweetCount?.toLocaleString()} tweets all time` } */}
+                        <p>tweets all time</p>
+                        {/* { loading? 'loading...' : `${tweetData?.tweetCount?.toLocaleString()} tweets all time` } */}
                     </a>
                     <a
                         rel="noopener noreferrer"
@@ -106,37 +107,48 @@ export default function AboutMe() {
                         <GitHubIcon />
                         { loading? 'loading...' : `${starCount?.toLocaleString()} stars on this repo` }
                     </a>
-                    <Link href="/blog" className="flex items-center">
+                    {/* <Link href="/blog" className="flex items-center">
                         <ViewsIcon />
-                        {/* {`${views.toLocaleString()} blog views all time`} */}
-                    </Link>
+                        {`${views.toLocaleString()} blog views all time`}
+                    </Link> */}
                     </div>
                 </div>
                 <p className="my-5 max-w-full sm:max-w-[600px] text-neutral-800 dark:text-neutral-200">
                     {bio()}
                 </p>
                 <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-500 dark:text-neutral-400">
+                    {/* <li>
+                        <a
+                            className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href="https://twitter.com/Nicommit_"
+                        >
+                            <ArrowIcon />
+                            <p className="h-7">follow me on Twitter</p>
+                        </a>
+                    </li> */}
                     <li>
-                    <a
-                        className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        href="https://twitter.com/Nicommit_"
-                    >
-                        <ArrowIcon />
-                        <p className="h-7">follow me on Twitter</p>
-                    </a>
+                        <a
+                            className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href="https://github.com/nico98gon"
+                        >
+                            <ArrowIcon />
+                            <p className="h-7">follow me on GitHub</p>
+                        </a>
                     </li>
                     <li>
-                    <a
-                        className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        href="https://github.com/nico98gon"
-                    >
-                        <ArrowIcon />
-                        <p className="h-7">follow me on GitHub</p>
-                    </a>
+                        <a
+                            className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href="https://www.linkedin.com/in/nico-gon/"
+                        >
+                            <ArrowIcon />
+                            <p className="h-7">follow me on LinkedIn</p>
+                        </a>
                     </li>
                 </ul>
             </motion.div>
